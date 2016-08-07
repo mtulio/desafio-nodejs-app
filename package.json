@@ -2,7 +2,7 @@
 , "description" : "Desafio NodeJS"
 , "email" : "git@mtulio.eng.br"
 , "url" : "https://github.com/mtulio/desafio-nodejs-app/"
-, "dependencies" :
-  { "express": "~4.14.0"
-  }
+, "repository": { "type": "git"
+,   "url": "https://github.com/mtulio/desafio-nodejs-app" }
+, "dependencies" : { "express": "~4.14.0" }
 }
