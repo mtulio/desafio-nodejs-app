@@ -8,6 +8,7 @@
     "url": "https://github.com/mtulio/desafio-nodejs-app"
   },
   "dependencies": {
-    "express": "~4.14.0"
+    "express": "~4.14.0",
+    "npid": "~0.4.0"
   }
 }
