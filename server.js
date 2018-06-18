@@ -1,9 +1,11 @@
-var express = require('express');
-var app = express();
-var npid = require('npid');
-
-var args_cli = {}
-var args = {}
+var
+	express = require('express');
+	app = express();
+	npid = require('npid');
+	fs = require('fs');
+	args_cli = {}
+	args = {}
+	config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 
 // Vars
 process.argv.forEach(function (val, index, array) {
@@ -29,19 +31,21 @@ try {
 }
 
 // Server
+//> handlers
 app.get('/', function (req, res) {
   d = Date.now() || 0
-  res.send('{"timestamp": '+ d + '}');
+  res.send('{"timestamp": '+ d + ',"version": "'+ config.version +'"}');
 });
 
 app.get('/internal/hello', function (req, res) {
-  res.send('Hello World ['+ args_app.port +'] \n');
+  res.send('{"Hello_Node": '+ args_app.port +'}');
 });
 
 app.get('/internal/ping', function (req, res) {
   res.send('{"response": "pong"}');
 });
 
+//> Bind && listen
 app.listen(args_app.port, function () {
   console.log('Sample App using env ' + args_app.env + ' listening on port ', args_app.port);
 });
