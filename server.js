@@ -20,11 +20,8 @@ args_app = {
 }
 
 // Misc
-//PID_FILE = (environment.pidfile || "/var/run/" + args_app.name + "-%PORT%.pid").replace("%PORT%", args_app.port)
-//pidfile(PID_FILE);
-
 try {
-    var pid = npid.create((args_app.pidfile || "/var/run/" + args_app.name + "-%PORT%.pid").replace("%PORT%", args_app.port));
+    var pid = npid.create((args_app.pidfile || "/var/run/" + args_app.name + "-%PORT%.pid").replace("%PORT%", args_app.port), true);
     pid.removeOnExit();
 } catch (err) {
     console.log(err);
@@ -33,8 +30,16 @@ try {
 
 // Server
 app.get('/', function (req, res) {
-  //res.send('Hello World!', Date.now());
-  res.send('Hello World! ' + Date.now() || 0);
+  d = Date.now() || 0
+  res.send('{"timestamp": '+ d + '}');
+});
+
+app.get('/internal/hello', function (req, res) {
+  res.send('Hello World ['+ args_app.port +'] \n');
+});
+
+app.get('/internal/ping', function (req, res) {
+  res.send('{"response": "pong"}');
 });
 
 app.listen(args_app.port, function () {
